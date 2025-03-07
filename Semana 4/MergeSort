@@ -27,7 +27,29 @@ def merge_sort(arr, key):
             arr[k] = right[j]
             j += 1
             k += 1
-#
+#Funcion para ordenar por Heap Sort
+def heapify(arr, n, i, key):
+    largest = i
+    left = 2 * i + 1
+    right = 2 * i + 2
+
+    if left < n and arr[i][key] < arr[left][key]:
+        largest = left
+    if right < n and arr[largest][key] < arr[right][key]:
+        largest = right
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest, key)
+
+def heap_sort(arr, key):
+    n = len(arr)
+
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(arr, n, i, key)
+
+    for i in range(n - 1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]
+        heapify(arr, i, 0, key)
 
 #Funcion para ordenar por Quick Sort
 def quick_sort(arr, low, high, key):
@@ -46,3 +68,16 @@ def partition(arr, low, high, key):
     arr[i + 1], arr[high] = arr[high], arr[i + 1]
     return i + 1
 
+#Funcion para buscar binariamente por edad o salario
+def binary_search(arr, key, value):
+    low = 0
+    high = len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid][key] == value:
+            return arr[mid]
+        elif arr[mid][key] < value:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return None
